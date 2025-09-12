@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Produto - Melu</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    .produto { max-width: 400px; margin: auto; text-align: center; }
+    img { max-width: 100%; border-radius: 10px; }
+    h1 { font-size: 24px; margin: 15px 0; }
+    .preco { font-size: 20px; font-weight: bold; color: #e91e63; }
+    .pix { color: green; font-weight: bold; margin: 10px 0; }
+    .comprar { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #ff4da6; color: #fff; text-decoration: none; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div id="produto" class="produto"></div>
+
+  <script>
+    const produtos = [{'id': 1, 'nome': 'Produto 1', 'preco': '20,90', 'imagem': 'WVGrGNIOV0Vx.br/produto1.png'}, {'id': 2, 'nome': 'Produto 2', 'preco': '21,90', 'imagem': 'WVGrGNIOV0Vx.br/produto2.png'}, {'id': 3, 'nome': 'Produto 3', 'preco': '22,90', 'imagem': 'WVGrGNIOV0Vx.br/produto3.png'}, {'id': 4, 'nome': 'Produto 4', 'preco': '23,90', 'imagem': 'WVGrGNIOV0Vx.br/produto4.png'}, {'id': 5, 'nome': 'Produto 5', 'preco': '24,90', 'imagem': 'WVGrGNIOV0Vx.br/produto5.png'}, {'id': 6, 'nome': 'Produto 6', 'preco': '25,90', 'imagem': 'WVGrGNIOV0Vx.br/produto6.png'}, {'id': 7, 'nome': 'Produto 7', 'preco': '26,90', 'imagem': 'WVGrGNIOV0Vx.br/produto7.png'}, {'id': 8, 'nome': 'Produto 8', 'preco': '27,90', 'imagem': 'WVGrGNIOV0Vx.br/produto8.png'}, {'id': 9, 'nome': 'Produto 9', 'preco': '28,90', 'imagem': 'WVGrGNIOV0Vx.br/produto9.png'}, {'id': 10, 'nome': 'Produto 10', 'preco': '29,90', 'imagem': 'WVGrGNIOV0Vx.br/produto10.png'}, {'id': 11, 'nome': 'Produto 11', 'preco': '30,90', 'imagem': 'WVGrGNIOV0Vx.br/produto11.png'}, {'id': 12, 'nome': 'Produto 12', 'preco': '31,90', 'imagem': 'WVGrGNIOV0Vx.br/produto12.png'}, {'id': 13, 'nome': 'Produto 13', 'preco': '32,90', 'imagem': 'WVGrGNIOV0Vx.br/produto13.png'}, {'id': 14, 'nome': 'Produto 14', 'preco': '33,90', 'imagem': 'WVGrGNIOV0Vx.br/produto14.png'}, {'id': 15, 'nome': 'Produto 15', 'preco': '34,90', 'imagem': 'WVGrGNIOV0Vx.br/produto15.png'}, {'id': 16, 'nome': 'Produto 16', 'preco': '35,90', 'imagem': 'WVGrGNIOV0Vx.br/produto16.png'}, {'id': 17, 'nome': 'Produto 17', 'preco': '36,90', 'imagem': 'WVGrGNIOV0Vx.br/produto17.png'}, {'id': 18, 'nome': 'Produto 18', 'preco': '37,90', 'imagem': 'WVGrGNIOV0Vx.br/produto18.png'}, {'id': 19, 'nome': 'Produto 19', 'preco': '38,90', 'imagem': 'WVGrGNIOV0Vx.br/produto19.png'}, {'id': 20, 'nome': 'Produto 20', 'preco': '39,90', 'imagem': 'WVGrGNIOV0Vx.br/produto20.png'}, {'id': 21, 'nome': 'Produto 21', 'preco': '40,90', 'imagem': 'WVGrGNIOV0Vx.br/produto21.png'}, {'id': 22, 'nome': 'Produto 22', 'preco': '41,90', 'imagem': 'WVGrGNIOV0Vx.br/produto22.png'}, {'id': 23, 'nome': 'Produto 23', 'preco': '42,90', 'imagem': 'WVGrGNIOV0Vx.br/produto23.png'}, {'id': 24, 'nome': 'Produto 24', 'preco': '43,90', 'imagem': 'WVGrGNIOV0Vx.br/produto24.png'}, {'id': 25, 'nome': 'Produto 25', 'preco': '44,90', 'imagem': 'WVGrGNIOV0Vx.br/produto25.png'}, {'id': 26, 'nome': 'Produto 26', 'preco': '45,90', 'imagem': 'WVGrGNIOV0Vx.br/produto26.png'}, {'id': 27, 'nome': 'Produto 27', 'preco': '46,90', 'imagem': 'WVGrGNIOV0Vx.br/produto27.png'}, {'id': 28, 'nome': 'Produto 28', 'preco': '47,90', 'imagem': 'WVGrGNIOV0Vx.br/produto28.png'}, {'id': 29, 'nome': 'Produto 29', 'preco': '48,90', 'imagem': 'WVGrGNIOV0Vx.br/produto29.png'}, {'id': 30, 'nome': 'Produto 30', 'preco': '49,90', 'imagem': 'WVGrGNIOV0Vx.br/produto30.png'}, {'id': 31, 'nome': 'Produto 31', 'preco': '50,90', 'imagem': 'WVGrGNIOV0Vx.br/produto31.png'}, {'id': 32, 'nome': 'Produto 32', 'preco': '51,90', 'imagem': 'WVGrGNIOV0Vx.br/produto32.png'}, {'id': 33, 'nome': 'Produto 33', 'preco': '52,90', 'imagem': 'WVGrGNIOV0Vx.br/produto33.png'}, {'id': 34, 'nome': 'Produto 34', 'preco': '53,90', 'imagem': 'WVGrGNIOV0Vx.br/produto34.png'}, {'id': 35, 'nome': 'Produto 35', 'preco': '54,90', 'imagem': 'WVGrGNIOV0Vx.br/produto35.png'}, {'id': 36, 'nome': 'Produto 36', 'preco': '55,90', 'imagem': 'WVGrGNIOV0Vx.br/produto36.png'}, {'id': 37, 'nome': 'Produto 37', 'preco': '56,90', 'imagem': 'WVGrGNIOV0Vx.br/produto37.png'}, {'id': 38, 'nome': 'Produto 38', 'preco': '57,90', 'imagem': 'WVGrGNIOV0Vx.br/produto38.png'}, {'id': 39, 'nome': 'Produto 39', 'preco': '58,90', 'imagem': 'WVGrGNIOV0Vx.br/produto39.png'}, {'id': 40, 'nome': 'Produto 40', 'preco': '59,90', 'imagem': 'WVGrGNIOV0Vx.br/produto40.png'}, {'id': 41, 'nome': 'Produto 41', 'preco': '60,90', 'imagem': 'WVGrGNIOV0Vx.br/produto41.png'}, {'id': 42, 'nome': 'Produto 42', 'preco': '61,90', 'imagem': 'WVGrGNIOV0Vx.br/produto42.png'}, {'id': 43, 'nome': 'Produto 43', 'preco': '62,90', 'imagem': 'WVGrGNIOV0Vx.br/produto43.png'}, {'id': 44, 'nome': 'Produto 44', 'preco': '63,90', 'imagem': 'WVGrGNIOV0Vx.br/produto44.png'}, {'id': 45, 'nome': 'Produto 45', 'preco': '64,90', 'imagem': 'WVGrGNIOV0Vx.br/produto45.png'}, {'id': 46, 'nome': 'Produto 46', 'preco': '65,90', 'imagem': 'WVGrGNIOV0Vx.br/produto46.png'}, {'id': 47, 'nome': 'Produto 47', 'preco': '66,90', 'imagem': 'WVGrGNIOV0Vx.br/produto47.png'}, {'id': 48, 'nome': 'Produto 48', 'preco': '67,90', 'imagem': 'WVGrGNIOV0Vx.br/produto48.png'}, {'id': 49, 'nome': 'Produto 49', 'preco': '68,90', 'imagem': 'WVGrGNIOV0Vx.br/produto49.png'}, {'id': 50, 'nome': 'Produto 50', 'preco': '69,90', 'imagem': 'WVGrGNIOV0Vx.br/produto50.png'}, {'id': 51, 'nome': 'Produto 51', 'preco': '70,90', 'imagem': 'WVGrGNIOV0Vx.br/produto51.png'}, {'id': 52, 'nome': 'Produto 52', 'preco': '71,90', 'imagem': 'WVGrGNIOV0Vx.br/produto52.png'}, {'id': 53, 'nome': 'Produto 53', 'preco': '72,90', 'imagem': 'WVGrGNIOV0Vx.br/produto53.png'}, {'id': 54, 'nome': 'Produto 54', 'preco': '73,90', 'imagem': 'WVGrGNIOV0Vx.br/produto54.png'}, {'id': 55, 'nome': 'Produto 55', 'preco': '74,90', 'imagem': 'WVGrGNIOV0Vx.br/produto55.png'}, {'id': 56, 'nome': 'Produto 56', 'preco': '75,90', 'imagem': 'WVGrGNIOV0Vx.br/produto56.png'}, {'id': 57, 'nome': 'Produto 57', 'preco': '76,90', 'imagem': 'WVGrGNIOV0Vx.br/produto57.png'}, {'id': 58, 'nome': 'Produto 58', 'preco': '77,90', 'imagem': 'WVGrGNIOV0Vx.br/produto58.png'}, {'id': 59, 'nome': 'Produto 59', 'preco': '78,90', 'imagem': 'WVGrGNIOV0Vx.br/produto59.png'}];
+
+    function getParam(name) {
+      const url = new URL(window.location.href);
+      return url.searchParams.get(name);
+    }
+
+    const id = parseInt(getParam('id'));
+    const produto = produtos.find(p => p.id === id);
+
+    if (produto) {
+      document.getElementById('produto').innerHTML = `
+        <img src="${produto.imagem}" alt="${produto.nome}">
+        <h1>${produto.nome}</h1>
+        <p class="preco">R$ ${produto.preco}</p>
+        <p class="pix">5% OFF NO PIX</p>
+        <a href="checkout.html?id=${produto.id}" class="comprar">COMPRAR</a>
+      `;
+    } else {
+      document.getElementById('produto').innerHTML = `<p>Produto não encontrado</p>`;
+    }
+  </script>
+</body>
+</html>
