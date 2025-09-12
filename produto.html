@@ -1,1 +1,41 @@
 
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Produto - Melu</title>
+<link rel="stylesheet" href="7KCgV7Y9OWt1.br/css/styles.css" media="all">
+</head>
+<body>
+<div id="produto-root"></div>
+
+<script>
+// helper to get query param
+function getParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+
+fetch('produtos.json').then(r=>r.json()).then(produtos=>{
+  const id = parseInt(getParam('id'));
+  const p = produtos.find(x=>x.id===id);
+  if(!p){ document.getElementById('produto-root').innerHTML='<p>Produto não encontrado</p>'; return; }
+  document.getElementById('produto-root').innerHTML = `
+    <div style="max-width:900px;margin:20px auto;padding:20px;">
+      <a href="index.html">← Voltar</a>
+      <div style="display:flex;flex-wrap:wrap;gap:20px;">
+        <div style="flex:1 1 320px;"><img src="${p.imagem}" alt="${p.nome}" style="width:100%;max-width:400px;"></div>
+        <div style="flex:1 1 320px;">
+          <h1>${p.nome}</h1>
+          <p style="font-size:22px;color:#e60073;font-weight:bold;">${p.preco}</p>
+          <p>${p.descricao||''}</p>
+          <a href="checkout.html?id=${p.id}" style="display:inline-block;padding:12px 20px;background:#e60073;color:#fff;border-radius:6px;text-decoration:none;">Comprar</a>
+        </div>
+      </div>
+    </div>
+  `;
+});
+</script>
+</body>
+</html>
