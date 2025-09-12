@@ -1,1 +1,50 @@
 
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout - Melu</title>
+</head>
+<body>
+<div id="checkout-root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+<script>
+function getParam(name) {
+  const url = new URL(window.location.href);
+  return url.searchParams.get(name);
+}
+fetch('produtos.json').then(r=>r.json()).then(produtos=>{
+  const id = parseInt(getParam('id'));
+  const p = produtos.find(x=>x.id===id);
+  const root = document.getElementById('checkout-root');
+  if(!p){ root.innerHTML='<p>Produto não encontrado</p>'; return; }
+  root.innerHTML = `
+    <div style="max-width:700px;margin:20px auto;padding:20px;">
+      <a href="produto.html?id=${p.id}">← Voltar</a>
+      <h2>Finalizar compra - ${p.nome}</h2>
+      <p style="font-weight:bold;color:#e60073;">${p.preco}</p>
+      <form id="form">
+        <label>Nome completo<br><input name="nome" required></label><br><br>
+        <label>Endereço completo<br><input name="endereco" required></label><br><br>
+        <label>CEP<br><input name="cep" required></label><br><br>
+        <button type="submit" style="padding:10px 16px;background:#e60073;color:white;border:none;border-radius:6px;">Gerar Pix</button>
+      </form>
+      <div id="qrcode-wrap" style="margin-top:20px;"></div>
+    </div>
+  `;
+  document.getElementById('form').onsubmit = function(e){ e.preventDefault();
+    const nome = this.nome.value; const endereco = this.endereco.value;
+    // gerar payload Pix simples com chave fixa
+    const chave = '07256374399';
+    const valor = parseFloat(p.preco.replace(/[^\d,.-]/g,'').replace(',','.')).toFixed(2);
+    const valorStr = valor.replace('.', '');
+    // payload simplificado (NÃO homologado para produção)
+    const payload = `00020126360014BR.GOV.BCB.PIX0114${chave}520400005303986540${valorStr}5802BR5925${nome}6009SAO PAULO62070503***6304ABCD`;
+    document.getElementById('qrcode-wrap').innerHTML = '<p>Escaneie com app do banco para pagar via Pix</p><canvas id="qrcode"></canvas>';
+    new QRious({ element: document.getElementById('qrcode'), value: payload, size: 300 });
+  };
+});
+</script>
+</body>
+</html>
