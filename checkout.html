@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Checkout</title>
-  <style> 
+  <style>
     body { 
       font-family: Arial, sans-serif; 
       background: linear-gradient(135deg, #ffdee9, #ffc1e3); 
@@ -134,31 +134,29 @@
     </form>
   </div>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const prodId = parseInt(urlParams.get("produto") || "1", 10);
+  
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const prodId = parseInt(urlParams.get("produto") || "1", 10);
 
-    // Lista de nomes (1 até 50)
-    const nomesProdutos = [
-      "", // posição 0 não usada
-      "Produto 1","Produto 2","Produto 3","Produto 4","Produto 5",
-      "Produto 6","Produto 7","Produto 8","Produto 9","Produto 10",
-      "Produto 11","Produto 12","Produto 13","Produto 14","Produto 15",
-      "Produto 16","Produto 17","Produto 18","Produto 19","Produto 20",
-      "Produto 21","Produto 22","Produto 23","Produto 24","Produto 25",
-      "Produto 26","Produto 27","Produto 28","Produto 29","Produto 30",
-      "Produto 31","Produto 32","Produto 33","Produto 34","Produto 35",
-      "Produto 36","Produto 37","Produto 38","Produto 39","Produto 40",
-      "Produto 41","Produto 42","Produto 43","Produto 44","Produto 45",
-      "Produto 46","Produto 47","Produto 48","Produto 49","Produto 50"
-    ];
+  // Lista de nomes fixos (1 a 50)
+  const nomesProdutos = [
+    "", "Produto 1","Produto 2","Produto 3","Produto 4","Produto 5","Produto 6","Produto 7",
+    "Produto 8","Produto 9","Produto 10","Produto 11","Produto 12","Produto 13","Produto 14","Produto 15",
+    "Produto 16","Produto 17","Produto 18","Produto 19","Produto 20","Produto 21","Produto 22","Produto 23",
+    "Produto 24","Produto 25","Produto 26","Produto 27","Produto 28","Produto 29","Produto 30","Produto 31",
+    "Produto 32","Produto 33","Produto 34","Produto 35","Produto 36","Produto 37","Produto 38","Produto 39",
+    "Produto 40","Produto 41","Produto 42","Produto 43","Produto 44","Produto 45","Produto 46","Produto 47",
+    "Produto 48","Produto 49","Produto 50"
+  ];
 
-    const prodName = nomesProdutos[prodId] || `Produto ${prodId}`;
+  const prodName = nomesProdutos[prodId] || `Produto ${prodId}`;
 
-    // Corrigido: volta 1 nível para acessar WVGrGNIOV0Vx.br
-    document.getElementById("prodThumb").src = `../WVGrGNIOV0Vx.br/produto${prodId}.png`;
-    document.getElementById("prodName").textContent = prodName;
-    document.getElementById("produto-hidden").value = prodName;
-  </script>
+  // Atualiza checkout
+  document.getElementById("prodThumb").src = `https://WVGrGNIOV0Vx.br/produto${prodId}.png`;
+  document.getElementById("prodName").textContent = prodName;
+  document.getElementById("produto-hidden").value = prodName;
+</script>
+
 </body>
 </html>
