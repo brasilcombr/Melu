@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pagar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ffdee9, #ffc1e3);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 700px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+      animation: fadeIn 0.7s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #e60073;
+    }
+    .options {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+    .options button {
+      flex: 1;
+      margin: 0 5px;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      background: #e60073;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .options button:hover {
+      background: #cc0066;
+    }
+    .content {
+      display: none;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .active {
+      display: block;
+    }
+    .qr {
+      margin: 20px auto;
+      max-width: 250px;
+    }
+    .qr img {
+      width: 100%;
+      border-radius: 12px;
+      border: 3px solid #ffc1e3;
+    }
+    .copy-btn {
+      margin-top: 12px;
+      padding: 10px 16px;
+      border: none;
+      background: #e60073;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .copy-btn:hover {
+      background: #cc0066;
+    }
+    form input, form select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+    .confirm {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      background: #fce4ec;
+      color: #880e4f;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Pagamento</h1>
+    
+    <div class="options">
+      <button onclick="showContent('pix')">Pix</button>
+      <button onclick="showContent('debito')">Débito</button>
+      <button onclick="showContent('credito')">Crédito</button>
+    </div>
+    
+    <!-- Pix -->
+    <div id="pix" class="content">
+      <h2>Pagamento via Pix</h2>
+      <div class="qr">
+        <img src="WVGrGNIOV0Vx.br/qrcode.png.lnk" alt="QR Code Pix">
+      </div>
+      <input type="text" id="pixCode" value="00020126580014br.gov.bcb.pix..." readonly>
+      <button class="copy-btn" onclick="copyPix()">📋 Copiar código</button>
+      <div class="confirm">Aguarde 10 minutos e confira seu Gmail.</div>
+    </div>
+    
+    <!-- Débito -->
+    <div id="debito" class="content">
+      <h2>Pagamento via Cartão de Débito</h2>
+      <div class="confirm">Pagamento com cartão de débito processado!<br>Aguarde 10 minutos e confira seu Gmail.</div>
+    </div>
+    
+    <!-- Crédito -->
+    <div id="credito" class="content">
+      <h2>Pagamento via Cartão de Crédito</h2>
+      <form onsubmit="event.preventDefault(); showCreditConfirm();">
+        <input type="text" placeholder="Número do cartão" required>
+        <input type="text" placeholder="Validade (MM/AA)" required>
+        <input type="text" placeholder="CVV" required>
+        <input type="text" placeholder="Nome no cartão" required>
+        <select required>
+          <option value="">Parcelar em até:</option>
+          <option>1x de R$19,99</option>
+          <option>2x de R$9,99</option>
+          <option>3x de R$6,66</option>
+          <option>6x de R$3,33</option>
+          <option>12x de R$1,66</option>
+        </select>
+        <button type="submit" class="copy-btn">Confirmar Pagamento</button>
+      </form>
+      <div id="creditConfirm" class="confirm" style="display:none">
+        Pagamento com cartão de crédito aprovado!<br>Aguarde 10 minutos e confira seu Gmail.
+      </div>
+    </div>
+    
+  </div>
+  
+  <script>
+    function showContent(id) {
+      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+    function copyPix() {
+      const pixCode = document.getElementById("pixCode");
+      pixCode.select();
+      document.execCommand("copy");
+      alert("Código Pix copiado!");
+    }
+    function showCreditConfirm() {
+      document.getElementById("creditConfirm").style.display = "block";
+    }
+  </script>
+</body>
+</html>
