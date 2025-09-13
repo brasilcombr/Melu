@@ -90,14 +90,10 @@
     <h1>Finalizar Compra</h1>
 
     <!-- Resumo do produto -->
-    <div class="produto">
-      <img id="prodThumb" src="" alt="Produto">
-      <div>
-        <h2 id="prodName"></h2>
-        <p><strong>Preço:</strong> R$ 19,99</p>
-      </div>
+    <div class="produto" style="display:block; text-align:center; border:none;">
+      <h2 style="color:#e60073; font-size:22px; margin-bottom:10px;">⚡ Fim da promoção em:</h2>
+      <div id="promo-timer" style="font-size:32px; font-weight:bold; color:#d60000;">10:00</div>
     </div>
-
     <!-- Formulário -->
     <form action="https://formspree.io/f/xnnbrqeg" method="POST">
       <label>Nome completo</label>
@@ -136,27 +132,43 @@
 
   
 <script>
-  const urlParams = new URLSearchParams(window.location.search);
-  const prodId = parseInt(urlParams.get("produto") || "1", 10);
+  function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    var countdown = setInterval(function () {
+        minutes = parseInt(timer / 60, 10);
+        seconds = parseInt(timer % 60, 10);
 
-  // Lista de nomes fixos (1 a 50)
-  const nomesProdutos = [
-    "", "Produto 1","Produto 2","Produto 3","Produto 4","Produto 5","Produto 6","Produto 7",
-    "Produto 8","Produto 9","Produto 10","Produto 11","Produto 12","Produto 13","Produto 14","Produto 15",
-    "Produto 16","Produto 17","Produto 18","Produto 19","Produto 20","Produto 21","Produto 22","Produto 23",
-    "Produto 24","Produto 25","Produto 26","Produto 27","Produto 28","Produto 29","Produto 30","Produto 31",
-    "Produto 32","Produto 33","Produto 34","Produto 35","Produto 36","Produto 37","Produto 38","Produto 39",
-    "Produto 40","Produto 41","Produto 42","Produto 43","Produto 44","Produto 45","Produto 46","Produto 47",
-    "Produto 48","Produto 49","Produto 50"
-  ];
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
 
-  const prodName = nomesProdutos[prodId] || `Produto ${prodId}`;
+        display.textContent = minutes + ":" + seconds;
 
-  // Atualiza checkout
-  document.getElementById("prodThumb").src = `../WVGrGNIOV0Vx.br/produto${prodId}.png`;
-  document.getElementById("prodName").textContent = prodName;
-  document.getElementById("produto-hidden").value = prodName;
+        if (timer <= 60) {
+          display.style.color = "#ff0000";
+          display.style.animation = "blink 1s step-start infinite";
+        }
+
+        if (--timer < 0) {
+            clearInterval(countdown);
+            display.textContent = "00:00";
+            display.style.animation = "none";
+        }
+    }, 1000);
+  }
+
+  window.onload = function () {
+    var tenMinutes = 60 * 10,
+        display = document.querySelector('#promo-timer');
+    startTimer(tenMinutes, display);
+  };
 </script>
+
+<style>
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
+
 
 </body>
 </html>
