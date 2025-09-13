@@ -94,8 +94,9 @@
       <h2 style="color:#e60073; font-size:22px; margin-bottom:10px;">⚡ Fim da promoção em:</h2>
       <div id="promo-timer" style="font-size:32px; font-weight:bold; color:#d60000;">10:00</div>
     </div>
+
     <!-- Formulário -->
-    <form action="https://formspree.io/f/xnnbrqeg" method="POST">
+    <form id="checkoutForm" method="POST">
       <label>Nome completo</label>
       <input type="text" name="nome" required>
 
@@ -126,13 +127,12 @@
       <!-- Produto vai junto no e-mail -->
       <input type="hidden" id="produto-hidden" name="produto" value="">
 
-      <input type="hidden" name="_redirect" value="https://brasilcombr.github.io/Melu/pp/pagar.html">
       <button type="submit">Pagar</button>
     </form>
   </div>
 
-  
 <script>
+  // Timer de 10 minutos
   function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
     var countdown = setInterval(function () {
@@ -162,6 +162,26 @@
         display = document.querySelector('#promo-timer');
     startTimer(tenMinutes, display);
   };
+
+  // Envio via JS para Formspree e redirecionamento para pagar.html
+  document.getElementById("checkoutForm").addEventListener("submit", async function(e) {
+    e.preventDefault(); 
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      await fetch("https://formspree.io/f/xnnbrqeg", {
+        method: "POST",
+        body: data,
+        headers: { "Accept": "application/json" }
+      });
+
+      window.location.href = "pagar.html";
+    } catch (err) {
+      alert("Erro ao enviar os dados. Tente novamente.");
+    }
+  });
 </script>
 
 <style>
@@ -169,7 +189,6 @@
   50% { opacity: 0; }
 }
 </style>
-
 
 </body>
 </html>
